@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import "./CustomToolBar.css";
-import { Navigate } from "react-big-calendar";
-import { Sidebar } from "primereact/sidebar";
-import { Button } from "primereact/button";
 import moment from "moment";
+import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { useState } from "react";
+import { Navigate } from "react-big-calendar";
+import "./CustomToolBar.css";
 
-const CustomToolBar = (toolbar: any) => {
+const CustomToolBar = ({ onclick, ...toolbar }: any) => {
   const [selectedView, setSelectedView] = useState(toolbar.view);
-  console.log(toolbar);
   const goToBack = () => {
     toolbar.onNavigate(Navigate.PREVIOUS);
   };
@@ -38,7 +36,12 @@ const CustomToolBar = (toolbar: any) => {
   return (
     <div className="toolbar-view">
       <div className="toolbar">
-        <Button label="Schedule test" outlined className="btn-1" />
+        <Button
+          label="Schedule test"
+          outlined
+          className="btn-1"
+          onClick={() => onclick()}
+        />
         <div className="today" onClick={() => goToCurrent()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,8 +1,9 @@
-.rbc-time-header-content{
+.rbc-time-header-content {
     height: 24px;
     background-color: #E4E4F0
 }
-.rbc-header{
+
+.rbc-header {
     color: #717182;
     font-family: "Inter", sans-serif;
     font-size: 18px !important;
@@ -12,8 +13,32 @@
     font-weight: 400px !important;
 
 }
-.rbc-label{
+
+.rbc-label {
     color: #C8C8DD;
     font-family: "Inter", sans-serif;
     font-size: 12px;
+}
+
+.rbc-event-label {
+    display: none !important;
+}
+
+.rbc-event {
+    background-color: #C8DFFF !important;
+    color: #000 !important;
+
+    .events {
+        .title {
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            line-height: 18px;
+        }
+
+        span {
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            line-height: 18px;
+        }
+    }
 }
