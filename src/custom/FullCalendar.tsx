@@ -1,15 +1,17 @@
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Calendar,
   DateLocalizer,
-  momentLocalizer
+  momentLocalizer,
+  Formats,
 } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CustomEvents from "./events/CustomEvents";
 import CustomToolBar from "./toolbar/CustomToolBar";
+import { CalendarContext } from "../store/store";
 
-const localizer: DateLocalizer = momentLocalizer(moment);
+const localizer = momentLocalizer(moment);
 export type executionEvent = {
   id?: number;
   title?: string;
@@ -26,6 +28,7 @@ export type EventItem = {
 };
 
 const FullCalendar = (props: any) => {
+  const {dispatch,loading} = useContext(CalendarContext);
   const [events, setEvents] = useState<executionEvent[]>([]);
 
   useEffect(() => {
@@ -36,8 +39,20 @@ const FullCalendar = (props: any) => {
       setEvents(data);
     }
     fetchEvents();
-  }, []);
+  }, [loading]);
 
+  const formats: Formats = {
+    dayFormat: (date: Date) => {
+      const dayNumber = moment(date).format("DD");
+      const dayName = moment(date).format("dddd");
+      return `${dayNumber} ${dayName}`;
+    },
+    weekdayFormat: (date: Date) => moment(date).format("dddd"),
+  };
+  const handleSlot = (start: Date,end: Date)=>{
+    props.getEventDate(start,end);
+   dispatch({type:"SHOW", payload:true })
+  }
   const eventItems = events.map((event) => ({
     ...event,
     start: new Date(event.start),
@@ -47,16 +62,15 @@ const FullCalendar = (props: any) => {
   return (
     <Calendar
       selectable
-      onSelectSlot={props.onClick}
+      onSelectSlot={({start,end})=>handleSlot(start,end)}
       {...props}
       localizer={localizer}
       components={{
-        toolbar: (toobarProps) => (
-          <CustomToolBar {...toobarProps} onclick={props.onClick} />
-        ),
+        toolbar: CustomToolBar, 
         event: CustomEvents,
       }}
       events={eventItems}
+      formats={formats}
     />
   );
 };
