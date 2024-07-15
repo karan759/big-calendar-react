@@ -1,12 +1,18 @@
 import moment from "moment";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Navigate } from "react-big-calendar";
 import "./CustomToolBar.css";
+import { CalendarContext } from "../../store/store";
 
-const CustomToolBar = ({ onclick, ...toolbar }: any) => {
+const CustomToolBar = (toolbar:any ) => {
+  const {dispatch} = useContext(CalendarContext);
   const [selectedView, setSelectedView] = useState(toolbar.view);
+
+  const handleClick =()=>{
+dispatch({type:'SHOW',payload: true })
+  }
   const goToBack = () => {
     toolbar.onNavigate(Navigate.PREVIOUS);
   };
@@ -40,7 +46,7 @@ const CustomToolBar = ({ onclick, ...toolbar }: any) => {
           label="Schedule test"
           outlined
           className="btn-1"
-          onClick={() => onclick()}
+          onClick={() => handleClick()}
         />
         <div className="today" onClick={() => goToCurrent()}>
           <svg
@@ -65,6 +71,7 @@ const CustomToolBar = ({ onclick, ...toolbar }: any) => {
             viewBox="0 0 16 16"
             fill="none"
             onClick={() => goToBack()}
+            style={{'cursor': 'pointer'}}
           >
             <path
               d="M5 8L10 3L10.7 3.7L6.4 8L10.7 12.3L10 13L5 8Z"
@@ -78,6 +85,7 @@ const CustomToolBar = ({ onclick, ...toolbar }: any) => {
             viewBox="0 0 16 16"
             fill="none"
             onClick={() => goToNext()}
+            style={{'cursor': 'pointer'}}
           >
             <path
               d="M11 8L6.00005 13L5.30005 12.3L9.60005 8L5.30005 3.7L6.00005 3L11 8Z"

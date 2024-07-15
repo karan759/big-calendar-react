@@ -7,10 +7,13 @@
     align-items: center;
 
     .viewOption {
-        width: 122px;
+        background-color: #0000001c;
+        width: 85px;
         font-family: Inter;
         font-size: 12px;
         height: 30px;
+        align-items: center;
+        font-size: 12px;
     }
 }
 
@@ -64,5 +67,15 @@
         font-feature-settings: "clig" off, "liga" off;
         font-size: 14px;
         font-family: "Inter", sans-serif;
+    }
+}
+.toolbar-1{
+    .p-dropdown .p-dropdown-trigger{
+        width: 1rem;
+        text-align: center;
+        margin-right: 3px;
+    }
+    .p-dropdown-label {
+font-size: 14px;
     }
 }
